@@ -1,0 +1,1432 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Glog.AI",
+          "organization": "Glog.AI",
+          "fullName": "Glog, Making software more secure",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
+          "informationUri": "https://www.glog.ai",
+          "rules": [
+            {
+              "id": "glog-bc65020f-5c87-4a29-8053-f2f113527a84",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C/C++ is used to calculate the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other undefined behaviors.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using functions that take the size of the buffer as an argument, such as `strnlen()`, which will not read past the specified length, even if it does not encounter a null character.\n\n## Source Code Fix Recommendation\n\nReplace `strlen(invalidCL)` with `strnlen(invalidCL, MAX_LEN)`, where `MAX_LEN` is the maximum expected length of the string.\n\n```cpp\n#include <string.h>\n\n#define MAX_LEN 100\n\n// ...\n\nchar invalidCL[MAX_LEN];\n// ...\nsize_t len = strnlen(invalidCL, MAX_LEN);\n```\n\n## Library Dependencies\n\nThe `strlen()` and `strnlen()` functions are part of the C standard library, so you need to include the `<string.h>` header file.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-4639644a-f093-48e7-a3eb-d00d22f90b2b",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C/C++ is used to calculate the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other undefined behaviors.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using functions that take the size of the buffer as an argument, such as `strnlen()`, which will not read past the specified length, even if it does not encounter a null character.\n\n## Source Code Fix Recommendation\n\nReplace `strlen(invalidCL)` with `strnlen(invalidCL, MAX_LEN)`, where `MAX_LEN` is the maximum expected length of the string.\n\n```cpp\n#include <string.h>\n\n#define MAX_LEN 100\n\n// ...\n\nchar invalidCL[MAX_LEN];\n// ...\nsize_t len = strnlen(invalidCL, MAX_LEN);\n```\n\n## Library Dependencies\n\nThe `strlen()` and `strnlen()` functions are part of the C standard library, so you need to include the `<string.h>` header file.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-e6e8b48a-abd6-4bf3-ae4a-25f91bd5643e",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C/C++ is used to calculate the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, segmentation faults, or other undefined behavior.\n\nIn the provided code snippet, `strlen(invalidBC)`, the vulnerability arises if `invalidBC` is not a null-terminated string.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. This can be done by initializing your strings with a null character at the end, or by manually adding a null character at the end of your strings after they have been modified.\n\nAlso, consider using safer alternatives to `strlen()`, such as `strnlen()`, which takes an additional parameter specifying the maximum number of characters to read. This can prevent buffer overflows by ensuring that `strnlen()` does not read past the end of your string, even if it is not null-terminated.\n\n## Source Code Fix Recommendation\n\nReplace `strlen(invalidBC)` with `strnlen(invalidBC, MAX_LENGTH)`, where `MAX_LENGTH` is the maximum expected length of your string.\n\n```cpp\n#include <string.h>\n\n#define MAX_LENGTH 100\n\n// ...\n\nsize_t length = strnlen(invalidBC, MAX_LENGTH);\n```\n\n## Library Dependencies\n\nThe `strlen()` and `strnlen()` functions are part of the C standard library, so you need to include the `<string.h>` header file.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-e96e68ea-2c1f-4b25-8c42-2a9aed84ca74",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C and C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory beyond the intended boundary, leading to a buffer overflow. This can cause crashes, incorrect behavior, or even allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes a maximum length parameter and will not read beyond this limit.\n\n## Source Code Fix Recommendation\n\nIf you have a code snippet like this:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint len = strlen(defined);\n```\n\nYou can replace it with:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\ndefined[sizeof(defined) - 1] = '\\0'; // Ensure null-termination\nint len = strlen(defined);\n```\n\nOr use `strnlen()`:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint len = strnlen(defined, sizeof(defined));\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library (`<cstring>` in C++, `<string.h>` in C), so no additional libraries are needed.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-5fe79fcf-464e-4914-b1d7-4a2a37da4008",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C and C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory beyond the intended boundary, leading to a buffer overflow. This can cause crashes, incorrect behavior, or even allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes a maximum length parameter and will not read beyond this limit.\n\n## Source Code Fix Recommendation\n\nIf you have a code snippet like this:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint len = strlen(defined);\n```\n\nYou can replace it with:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\ndefined[sizeof(defined) - 1] = '\\0'; // Ensure null-termination\nint len = strlen(defined);\n```\n\nOr use `strnlen()`:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint len = strnlen(defined, sizeof(defined));\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library (`<cstring>` in C++, `<string.h>` in C), so no additional libraries are needed.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-722de8d2-50db-46c5-b09d-06fe6b5dcbfb",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C and C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory beyond the intended boundary, leading to a buffer overflow. This can cause crashes, incorrect behavior, or even allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes a maximum length parameter and will not read beyond this limit.\n\n## Source Code Fix Recommendation\n\nIf you have a code snippet like this:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint len = strlen(defined);\n```\n\nYou can replace it with:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\ndefined[sizeof(defined) - 1] = '\\0'; // Ensure null-termination\nint len = strlen(defined);\n```\n\nOr use `strnlen()`:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint len = strnlen(defined, sizeof(defined));\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library (`<cstring>` in C++, `<string.h>` in C), so no additional libraries are needed.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-c0d1a67c-2b0e-4719-b4d3-575680551792",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other unexpected behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives that take the size of the buffer as an argument, such as `strnlen()`, which will not read past the specified length, even if it does not encounter a null character.\n\n## Source Code Fix Recommendation\n\nReplace `strlen(includeInvalid)` with `strnlen(includeInvalid, MAX_LEN)`, where `MAX_LEN` is the maximum expected length of the string.\n\n```cpp\n// Assuming MAX_LEN is defined and includeInvalid is a char array\nsize_t len = strnlen(includeInvalid, MAX_LEN);\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library (`<cstring>` in C++), so no additional libraries are needed.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-9545337d-2c76-4ddb-8c3c-dd9af37bdaa9",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other unexpected behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nInstead of:\n\n```cpp\n#include <cstring>\n\nchar include[] = \"example\";\nint length = strlen(include);\n```\n\nUse:\n\n```cpp\n#include <cstring>\n\nchar include[] = \"example\";\nint length = strnlen(include, sizeof(include));\n```\n\n## Library Dependencies\n\nThe code example requires the `<cstring>` library.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-25d4ca84-a119-4c5d-abba-1321f8c6d1d4",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other unexpected behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives that take the size of the buffer as an argument, such as `strnlen()`, which will not read past the specified length, even if it does not encounter a null character.\n\n## Source Code Fix Recommendation\n\nReplace `strlen(includeInvalid)` with `strnlen(includeInvalid, MAX_LEN)`, where `MAX_LEN` is the maximum expected length of the string.\n\n```cpp\n// Assuming MAX_LEN is defined and includeInvalid is a char array\nsize_t len = strnlen(includeInvalid, MAX_LEN);\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library (`<cstring>` in C++), so no additional libraries are needed.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-2d974e01-9bde-479b-b1ee-44e1a4ff4b73",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other unexpected behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nInstead of:\n\n```cpp\n#include <cstring>\n\nchar include[] = \"example\";\nint length = strlen(include);\n```\n\nUse:\n\n```cpp\n#include <cstring>\n\nchar include[] = \"example\";\nint length = strnlen(include, sizeof(include));\n```\n\n## Library Dependencies\n\nThe code example requires the `<cstring>` library.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-704d5b21-becc-41b5-ba77-d12804c8acea",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C and C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory beyond the intended boundary, leading to a buffer overflow. This can cause crashes, incorrect behavior, or even allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes a maximum length parameter and will not read beyond this limit.\n\n## Source Code Fix Recommendation\n\nIf you have a code snippet like this:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint len = strlen(defined);\n```\n\nYou can replace it with:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\ndefined[sizeof(defined) - 1] = '\\0'; // Ensure null-termination\nint len = strlen(defined);\n```\n\nOr use `strnlen()`:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint len = strnlen(defined, sizeof(defined));\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library (`<cstring>` in C++, `<string.h>` in C), so no additional libraries are needed.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-7b24d4d8-272b-4823-847b-00fc28219dfd",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other unexpected behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nInstead of:\n\n```cpp\n#include <cstring>\n\nchar include[] = \"example\";\nint length = strlen(include);\n```\n\nUse:\n\n```cpp\n#include <cstring>\n\nchar include[] = \"example\";\nint length = strnlen(include, sizeof(include));\n```\n\n## Library Dependencies\n\nThe code example requires the `<cstring>` library.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-ccbbda65-13f9-45e5-be9e-97f5a3e11c9b",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen(s)` function in C++ is used to find the length of a string. The vulnerability arises when the string `s` is not null-terminated. This can lead to buffer overflows, memory corruption, and other unexpected behavior, as `strlen(s)` will continue reading memory until it encounters a null character.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. This can be done by initializing your strings with a null character at the end, or by manually adding a null character at the end of your string after it has been modified.\n\n## Source Code Fix Recommendation\n\nInstead of using `strlen(s)`, consider using `strnlen(s, MAX_LEN)`, where `MAX_LEN` is the maximum expected length of your string. This function will only read up to `MAX_LEN` characters, preventing potential buffer overflows.\n\n```cpp\n#include <string.h>\n\n#define MAX_LEN 100\n\nchar s[MAX_LEN];\n// ... modify s ...\nsize_t len = strnlen(s, MAX_LEN);\n```\n\n## Library Dependencies\n\nThe `strlen` and `strnlen` functions are part of the `<string.h>` library in C++.\n\n## References\n\n- [OWASP C++](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)"
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-01f75f3e-ee4b-4d15-a5c2-c22115588494",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other unexpected behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nInstead of:\n\n```cpp\n#include <cstring>\n\nchar include[] = \"example\";\nint length = strlen(include);\n```\n\nUse:\n\n```cpp\n#include <cstring>\n\nchar include[] = \"example\";\nint length = strnlen(include, sizeof(include));\n```\n\n## Library Dependencies\n\nThe code example requires the `<cstring>` library.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            }
+          ],
+          "language": "en-US",
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "isComprehensive": false
+        }
+      },
+      "language": "en-US",
+      "results": [
+        {
+          "ruleId": "glog-bc65020f-5c87-4a29-8053-f2f113527a84",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 519,
+                  "startColumn": 61,
+                  "endLine": 519,
+                  "endColumn": 78,
+                  "charOffset": 16813,
+                  "charLength": 17,
+                  "snippet": {
+                    "text": "strlen(invalidCL)",
+                    "rendered": {
+                      "text": "strlen(invalidCL)",
+                      "markdown": "`strlen(invalidCL)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 16813,
+                        "charLength": 17
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(invalidCL, <size of invalidCL>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 16813,
+                        "charLength": 17
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(invalidCL, <size of invalidCL>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-4639644a-f093-48e7-a3eb-d00d22f90b2b",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 532,
+                  "startColumn": 61,
+                  "endLine": 532,
+                  "endColumn": 78,
+                  "charOffset": 17267,
+                  "charLength": 17,
+                  "snippet": {
+                    "text": "strlen(invalidCL)",
+                    "rendered": {
+                      "text": "strlen(invalidCL)",
+                      "markdown": "`strlen(invalidCL)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 17267,
+                        "charLength": 17
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(invalidCL, <size of invalidCL>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 17267,
+                        "charLength": 17
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(invalidCL, <size of invalidCL>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-e6e8b48a-abd6-4bf3-ae4a-25f91bd5643e",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 545,
+                  "startColumn": 66,
+                  "endLine": 545,
+                  "endColumn": 83,
+                  "charOffset": 17731,
+                  "charLength": 17,
+                  "snippet": {
+                    "text": "strlen(invalidBC)",
+                    "rendered": {
+                      "text": "strlen(invalidBC)",
+                      "markdown": "`strlen(invalidBC)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 17731,
+                        "charLength": 17
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(invalidBC, <size of invalidBC>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 17731,
+                        "charLength": 17
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(invalidBC, <size of invalidBC>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-e96e68ea-2c1f-4b25-8c42-2a9aed84ca74",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 504,
+                  "startColumn": 59,
+                  "endLine": 504,
+                  "endColumn": 74,
+                  "charOffset": 16305,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "strlen(defined)",
+                    "rendered": {
+                      "text": "strlen(defined)",
+                      "markdown": "`strlen(defined)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 16305,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(defined, <size of defined>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 16305,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(defined, <size of defined>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-5fe79fcf-464e-4914-b1d7-4a2a37da4008",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 475,
+                  "startColumn": 59,
+                  "endLine": 475,
+                  "endColumn": 74,
+                  "charOffset": 15347,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "strlen(defined)",
+                    "rendered": {
+                      "text": "strlen(defined)",
+                      "markdown": "`strlen(defined)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 15347,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(defined, <size of defined>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 15347,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(defined, <size of defined>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-722de8d2-50db-46c5-b09d-06fe6b5dcbfb",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 489,
+                  "startColumn": 59,
+                  "endLine": 489,
+                  "endColumn": 74,
+                  "charOffset": 15820,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "strlen(defined)",
+                    "rendered": {
+                      "text": "strlen(defined)",
+                      "markdown": "`strlen(defined)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 15820,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(defined, <size of defined>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 15820,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(defined, <size of defined>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-c0d1a67c-2b0e-4719-b4d3-575680551792",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 448,
+                  "startColumn": 74,
+                  "endLine": 448,
+                  "endColumn": 96,
+                  "charOffset": 14432,
+                  "charLength": 22,
+                  "snippet": {
+                    "text": "strlen(includeInvalid)",
+                    "rendered": {
+                      "text": "strlen(includeInvalid)",
+                      "markdown": "`strlen(includeInvalid)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 14432,
+                        "charLength": 22
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(includeInvalid, <size of includeInvalid>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 14432,
+                        "charLength": 22
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(includeInvalid, <size of includeInvalid>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-9545337d-2c76-4ddb-8c3c-dd9af37bdaa9",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 447,
+                  "startColumn": 66,
+                  "endLine": 447,
+                  "endColumn": 81,
+                  "charOffset": 14327,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "strlen(include)",
+                    "rendered": {
+                      "text": "strlen(include)",
+                      "markdown": "`strlen(include)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 14327,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(include, <size of include>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 14327,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(include, <size of include>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-25d4ca84-a119-4c5d-abba-1321f8c6d1d4",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 432,
+                  "startColumn": 74,
+                  "endLine": 432,
+                  "endColumn": 96,
+                  "charOffset": 13798,
+                  "charLength": 22,
+                  "snippet": {
+                    "text": "strlen(includeInvalid)",
+                    "rendered": {
+                      "text": "strlen(includeInvalid)",
+                      "markdown": "`strlen(includeInvalid)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 13798,
+                        "charLength": 22
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(includeInvalid, <size of includeInvalid>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 13798,
+                        "charLength": 22
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(includeInvalid, <size of includeInvalid>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-2d974e01-9bde-479b-b1ee-44e1a4ff4b73",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 417,
+                  "startColumn": 66,
+                  "endLine": 417,
+                  "endColumn": 81,
+                  "charOffset": 13184,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "strlen(include)",
+                    "rendered": {
+                      "text": "strlen(include)",
+                      "markdown": "`strlen(include)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 13184,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(include, <size of include>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 13184,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(include, <size of include>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-704d5b21-becc-41b5-ba77-d12804c8acea",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 461,
+                  "startColumn": 59,
+                  "endLine": 461,
+                  "endColumn": 74,
+                  "charOffset": 14887,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "strlen(defined)",
+                    "rendered": {
+                      "text": "strlen(defined)",
+                      "markdown": "`strlen(defined)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 14887,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(defined, <size of defined>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 14887,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(defined, <size of defined>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-7b24d4d8-272b-4823-847b-00fc28219dfd",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 403,
+                  "startColumn": 66,
+                  "endLine": 403,
+                  "endColumn": 81,
+                  "charOffset": 12696,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "strlen(include)",
+                    "rendered": {
+                      "text": "strlen(include)",
+                      "markdown": "`strlen(include)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 12696,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(include, <size of include>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 12696,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(include, <size of include>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-ccbbda65-13f9-45e5-be9e-97f5a3e11c9b",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Issue Detected with C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 50,
+                  "endLine": 49,
+                  "endColumn": 59,
+                  "charOffset": 1321,
+                  "charLength": 9,
+                  "snippet": {
+                    "text": "strlen(s)",
+                    "rendered": {
+                      "text": "strlen(s)",
+                      "markdown": "`strlen(s)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 1321,
+                        "charLength": 9
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(s, <size of s>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 1321,
+                        "charLength": 9
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(s, <size of s>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-01f75f3e-ee4b-4d15-a5c2-c22115588494",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (strlen)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 431,
+                  "startColumn": 66,
+                  "endLine": 431,
+                  "endColumn": 81,
+                  "charOffset": 13693,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "strlen(include)",
+                    "rendered": {
+                      "text": "strlen(include)",
+                      "markdown": "`strlen(include)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 13693,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(include, <size of include>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/unittest/Tests.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 13693,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(include, <size of include>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        }
+      ],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ]
+    }
+  ]
+}
