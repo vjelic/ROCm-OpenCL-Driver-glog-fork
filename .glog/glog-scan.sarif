@@ -12,6 +12,18 @@
           "informationUri": "https://www.glog.ai",
           "rules": [
             {
+              "id": "edbc1ccb-ee8f-37ad-99ab-30f6a77838d6",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other undefined behaviors.\n\nThis vulnerability is particularly dangerous because it can lead to serious security issues such as code execution, denial of service, or information disclosure.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, use safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\nAlso, consider using higher-level string handling functions or classes that automatically handle string termination and length calculation, such as the `std::string` class in C++.\n\n## Source Code Fix Recommendation\n\nIf `invalidCL` is a string that may not be null-terminated, replace:\n\n```cpp\nstrlen(invalidCL);\n```\n\nwith:\n\n```cpp\nstrnlen(invalidCL, MAX_LENGTH);\n```\n\nwhere `MAX_LENGTH` is the maximum expected length of the string.\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library, so no additional libraries are needed.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
               "id": "0c392191-3f19-3d3d-b55f-87c493869bb5",
               "help": {
                 "text": "",
@@ -48,10 +60,10 @@
               }
             },
             {
-              "id": "edbc1ccb-ee8f-37ad-99ab-30f6a77838d6",
+              "id": "cc9e637a-4836-3273-99a9-38cabcdf27ac",
               "help": {
                 "text": "",
-                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other undefined behaviors.\n\nThis vulnerability is particularly dangerous because it can lead to serious security issues such as code execution, denial of service, or information disclosure.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, use safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\nAlso, consider using higher-level string handling functions or classes that automatically handle string termination and length calculation, such as the `std::string` class in C++.\n\n## Source Code Fix Recommendation\n\nIf `invalidCL` is a string that may not be null-terminated, replace:\n\n```cpp\nstrlen(invalidCL);\n```\n\nwith:\n\n```cpp\nstrnlen(invalidCL, MAX_LENGTH);\n```\n\nwhere `MAX_LENGTH` is the maximum expected length of the string.\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library, so no additional libraries are needed.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
+                "markdown": "## Description\n\nThe `strlen()` function in C and C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory beyond the intended boundary, leading to a buffer overflow. This can cause crashes, data corruption, and potentially allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes a maximum length parameter and will not read beyond this limit.\n\n## Source Code Fix Recommendation\n\nIf you have a code snippet like this:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint length = strlen(defined);\n```\n\nYou can replace it with:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\ndefined[sizeof(defined) - 1] = '\\0'; // Ensure null-termination\nint length = strlen(defined);\n```\n\nOr use `strnlen()`:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint length = strnlen(defined, sizeof(defined));\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library (`<cstring>` in C++, `<string.h>` in C), so no additional libraries are needed.\n\n## References\n\n- [OWASP Buffer Overflow](https://owasp.org/www-community/vulnerabilities/Buffer_Overflow)\n- [CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')](https://cwe.mitre.org/data/definitions/120.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
               },
               "properties": {
                 "tags": [
@@ -72,10 +84,10 @@
               }
             },
             {
-              "id": "cc9e637a-4836-3273-99a9-38cabcdf27ac",
+              "id": "d34b3959-401a-37e2-bcb1-1560a581c6d5",
               "help": {
                 "text": "",
-                "markdown": "## Description\n\nThe `strlen()` function in C and C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will continue reading memory beyond the intended boundary, leading to a buffer overflow. This can cause crashes, data corruption, and potentially allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes a maximum length parameter and will not read beyond this limit.\n\n## Source Code Fix Recommendation\n\nIf you have a code snippet like this:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint length = strlen(defined);\n```\n\nYou can replace it with:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\ndefined[sizeof(defined) - 1] = '\\0'; // Ensure null-termination\nint length = strlen(defined);\n```\n\nOr use `strnlen()`:\n\n```c++\nchar defined[100];\n// ... some code that populates 'defined' ...\nint length = strnlen(defined, sizeof(defined));\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library (`<cstring>` in C++, `<string.h>` in C), so no additional libraries are needed.\n\n## References\n\n- [OWASP Buffer Overflow](https://owasp.org/www-community/vulnerabilities/Buffer_Overflow)\n- [CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')](https://cwe.mitre.org/data/definitions/120.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
+                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other undefined behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nReplace `strlen(includeInvalid)` with `strnlen(includeInvalid, MAX_LENGTH)`, where `MAX_LENGTH` is the maximum expected length of the string.\n\n```cpp\n#include <string.h>\n\n#define MAX_LENGTH 100\n\n// ...\n\nsize_t length = strnlen(includeInvalid, MAX_LENGTH);\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library, so you need to include the `<string.h>` or `<cstring>` header file.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
               },
               "properties": {
                 "tags": [
@@ -108,10 +120,10 @@
               }
             },
             {
-              "id": "d34b3959-401a-37e2-bcb1-1560a581c6d5",
+              "id": "4f42ff5a-5a70-3373-838f-2b18a3a93a9f",
               "help": {
                 "text": "",
-                "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other undefined behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nReplace `strlen(includeInvalid)` with `strnlen(includeInvalid, MAX_LENGTH)`, where `MAX_LENGTH` is the maximum expected length of the string.\n\n```cpp\n#include <string.h>\n\n#define MAX_LENGTH 100\n\n// ...\n\nsize_t length = strnlen(includeInvalid, MAX_LENGTH);\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library, so you need to include the `<string.h>` or `<cstring>` header file.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
+                "markdown": "## Description\n\nThe `strlen()` function in C and C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will keep reading memory beyond the intended boundary, leading to a buffer overflow vulnerability. This can result in crashes, incorrect behavior, or potential execution of malicious code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that come from untrusted sources without validation. Consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nInstead of:\n\n```cpp\nstrlen(include);\n```\n\nUse:\n\n```cpp\nstrnlen(include, MAX_LENGTH);\n```\n\nWhere `MAX_LENGTH` is the maximum expected length of the string. This ensures that `strnlen()` does not read beyond this length, even if it does not encounter a null character.\n\n## Library Dependencies\n\nThe `strlen()` and `strnlen()` functions are part of the C standard library, so no additional libraries are needed.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
               },
               "properties": {
                 "tags": [
@@ -124,18 +136,6 @@
               "help": {
                 "text": "",
                 "markdown": "## Description\n\nThe `strlen()` function in C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`\\0`). If the string is not null-terminated, `strlen()` will continue reading memory until it encounters a null character, which can lead to buffer overflows, memory corruption, and other undefined behavior.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that may not be null-terminated. Instead, consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nReplace `strlen(includeInvalid)` with `strnlen(includeInvalid, MAX_LENGTH)`, where `MAX_LENGTH` is the maximum expected length of the string.\n\n```cpp\n#include <string.h>\n\n#define MAX_LENGTH 100\n\n// ...\n\nsize_t length = strnlen(includeInvalid, MAX_LENGTH);\n```\n\n## Library Dependencies\n\nThe `strlen()` function is part of the C standard library, so you need to include the `<string.h>` or `<cstring>` header file.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)"
-              },
-              "properties": {
-                "tags": [
-                  "DS140021"
-                ]
-              }
-            },
-            {
-              "id": "4f42ff5a-5a70-3373-838f-2b18a3a93a9f",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\nThe `strlen()` function in C and C++ is used to find the length of a string. However, it can lead to vulnerabilities if not used properly. The function counts the number of characters in a string until it reaches a null character (`'\\0'`). If the string is not null-terminated, `strlen()` will keep reading memory beyond the intended boundary, leading to a buffer overflow vulnerability. This can result in crashes, incorrect behavior, or potential execution of malicious code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, always ensure that your strings are null-terminated. Avoid using `strlen()` on strings that come from untrusted sources without validation. Consider using safer alternatives such as `strnlen()`, which takes an additional parameter to specify the maximum length of the string.\n\n## Source Code Fix Recommendation\n\nInstead of:\n\n```cpp\nstrlen(include);\n```\n\nUse:\n\n```cpp\nstrnlen(include, MAX_LENGTH);\n```\n\nWhere `MAX_LENGTH` is the maximum expected length of the string. This ensures that `strnlen()` does not read beyond this length, even if it does not encounter a null character.\n\n## Library Dependencies\n\nThe `strlen()` and `strnlen()` functions are part of the C standard library, so no additional libraries are needed.\n\n## References\n\n- [OWASP C/C++ Vulnerabilities](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)\n- [CWE-126: Buffer Over-read](https://cwe.mitre.org/data/definitions/126.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
               },
               "properties": {
                 "tags": [
@@ -168,30 +168,6 @@
               }
             },
             {
-              "id": "52b7271a-7fec-319e-b9fe-0a45901653f3",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability in C++ programming language refers to the use of insecure C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, integer overflows, etc. In the provided code snippet, the function `getenv()` is used, which can lead to security vulnerabilities. The `getenv()` function returns a pointer to a string that is associated with the matched environment variable name. This can lead to information disclosure or even code execution if an attacker can control the environment in which your program runs.\n\n## Mitigation Advice\n\nAvoid using environment variables for passing sensitive information because they can be accessed by any process in the user's session. If you must use environment variables, ensure that they are not used to control the flow of the application. \n\n## Source Code Fix Recommendation\n\nIf you must use an environment variable, consider using a safer alternative to `getenv()`, such as `secure_getenv()`. The `secure_getenv()` function behaves identically to `getenv()` but returns NULL if the process is being run with elevated privileges. This can help prevent privilege escalation attacks.\n\n```cpp\nlog_level = secure_getenv(\"AMD_OCL_LOG_LEVEL\");\n```\n\n## Library Dependencies\n\nThe code example requires the following library to execute properly:\n\n* `cstdlib` - This library provides general purpose functions, including dynamic memory management, random number generation, communication with the environment, integer arithmetics, searching, sorting and converting.\n\n## References\n\n* [OWASP C++](https://owasp.org/www-community/vulnerabilities/Detected_Prohibited_C_Library_Functions)\n* [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
-              },
-              "properties": {
-                "tags": [
-                  "DS154189"
-                ]
-              }
-            },
-            {
-              "id": "e4ce6ee5-1de7-3101-8352-a4eb74d1f0ee",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\n\"Prohibited C Function Found\" is a vulnerability that occurs when a C++ program uses a function that is considered unsafe due to its potential to cause buffer overflows, format string vulnerabilities, or other security problems. The `getenv` function is one such function. It returns a pointer to a string that is associated with the matched environment variable name. This can lead to security vulnerabilities if the returned string is modified, or if the program does not handle the possibility that `getenv` could return a null pointer if the specified environment variable does not exist.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, avoid using the `getenv` function. Instead, consider using safer alternatives that are less prone to security issues. Always validate and sanitize input, and handle the possibility of null pointers. \n\n## Source Code Fix Recommendation\n\nInstead of using `getenv`, you can use a safer alternative like `getenv_s`. Here is an example of how to use it:\n\n```cpp\n#include <stdlib.h>\n\nchar* value;\nsize_t requiredSize;\n\ngetenv_s(&requiredSize, NULL, 0, \"ENV_VAR\");\nif (requiredSize == 0)\n{\n    printf(\"The environment variable does not exist.\\n\");\n}\nelse\n{\n    value = (char*) malloc(requiredSize * sizeof(char));\n    if (value != NULL)\n    {\n        getenv_s(&requiredSize, value, requiredSize, \"ENV_VAR\");\n        printf(\"The value of the environment variable is: %s\\n\", value);\n    }\n    free(value);\n}\n```\n\nIn this code, `getenv_s` is used to safely get the value of an environment variable. It checks if the environment variable exists and handles the possibility of a null pointer.\n\n## Library Dependencies\n\nThe code example requires the `stdlib.h` library.\n\n## References\n\n- [OWASP C++](https://owasp.org/www-pdf-archive/OWASP_SCP_v2.pdf)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
-              },
-              "properties": {
-                "tags": [
-                  "DS154189"
-                ]
-              }
-            },
-            {
               "id": "1ef89170-c731-3e66-84bf-ea998cb17a55",
               "help": {
                 "text": "",
@@ -204,10 +180,10 @@
               }
             },
             {
-              "id": "8c644bda-20cd-35e5-9a9d-b8d506ec6ecf",
+              "id": "43438f15-2385-3e7f-b477-f082f440b5df",
               "help": {
                 "text": "",
-                "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability in C++ refers to the use of insecure C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, integer overflows, etc. In this case, the `getenv` function is used, which can lead to security vulnerabilities. The `getenv` function returns a pointer to a string that is associated with the matched environment variable name. This can lead to information disclosure or other security issues if the environment variable contains sensitive information.\n\n## Mitigation Advice\n\nAvoid using the `getenv` function if possible. If you need to use environment variables, consider using a safer alternative that does not expose the entire environment block. Always validate and sanitize the input to the `getenv` function to prevent potential security issues.\n\n## Source Code Fix Recommendation\n\nInstead of using `getenv`, consider using a safer alternative. For example, you can use the `std::getenv` function in C++ which is safer than the C `getenv` function. Here is an example of how to use it:\n\n```cpp\n#include <cstdlib>\n\nstd::string sEnvVar = \"PATH\";\nconst char* env_p = std::getenv(sEnvVar.c_str());\nif (env_p) {\n    std::cout << \"Your PATH is: \" << env_p << '\\n';\n}\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `<cstdlib>`: This header defines several general purpose functions, including dynamic memory management, random number generation, communication with the environment, integer arithmetics, searching, sorting and converting.\n\n## References\n\n- [OWASP C++](https://owasp.org/www-pdf-archive/OWASP_SCP_v2.pdf)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
+                "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability refers to the use of insecure or unsafe C library functions in C++ code. These functions are often prone to buffer overflow attacks, format string vulnerabilities, or other types of security issues. In this case, the `getenv` function is used, which can lead to security vulnerabilities as it accesses the environment variables of the system. If an attacker can modify these variables, they can manipulate the behavior of the program.\n\n## Mitigation Advice\n\nAvoid using functions that directly interact with the environment variables or system resources. If it's necessary to use such functions, ensure that the input is properly validated and sanitized to prevent any malicious manipulation. \n\n## Source Code Fix Recommendation\n\nInstead of using `getenv`, consider using a safer alternative that allows for error handling or input validation. For example, you could use a function that retrieves the environment variable and checks it against a whitelist of allowed values.\n\n```cpp\nconst char* getSafeEnv(const char* name) {\n    static const std::set<std::string> whitelist = {\"ALLOWED_ENV_VAR1\", \"ALLOWED_ENV_VAR2\"};\n    if (whitelist.find(name) != whitelist.end()) {\n        return getenv(name);\n    } else {\n        // Handle error or return a default value\n        return nullptr;\n    }\n}\n\n// Usage\nASSERT_NE(getSafeEnv(\"TEST_DIR\"), nullptr);\n```\n\n## Library Dependencies\n\nThe code example requires the following libraries:\n\n- `cassert` for the `ASSERT_NE` macro.\n- `cstdlib` for the `getenv` function.\n- `set` and `string` for the whitelist in the `getSafeEnv` function.\n\n## References\n\n- [OWASP C++](https://owasp.org/www-pdf-archive/OWASP_SCP_v2.pdf)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
               },
               "properties": {
                 "tags": [
@@ -220,6 +196,42 @@
               "help": {
                 "text": "",
                 "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability in C++ refers to the use of insecure C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, integer overflows, etc. In this case, the `getenv` function is used, which can lead to security vulnerabilities if not used properly. The `getenv` function returns a pointer to a string that is associated with the matched environment variable name. If the environment variable is controlled by an attacker, it can lead to various security issues.\n\n## Mitigation Advice\n\nAvoid using insecure C library functions. If you need to use them, make sure to validate and sanitize all inputs. Do not trust user input or environment variables blindly. Always consider the possibility that they can be controlled by an attacker.\n\n## Source Code Fix Recommendation\n\nInstead of using `getenv`, consider using a safer alternative. If you still need to use `getenv`, make sure to validate the returned pointer. Here is an example of how you can do it:\n\n```cpp\nconst char* testDir = getenv(\"TEST_DIR\");\nif (testDir == nullptr) {\n    // Handle the error\n} else {\n    // Use testDir\n}\n```\n\n## Library Dependencies\n\nThe `getenv` function is part of the C standard library, so you need to include `cstdlib`.\n\n```cpp\n#include <cstdlib>\n```\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)\n\nPlease note that the links provided are active and accessible for anonymous users at the time of writing this report."
+              },
+              "properties": {
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
+              "id": "74db67c2-dc44-39dc-89d3-ae570f6528b5",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability refers to the use of insecure C library functions in C++ code. These functions are often prone to buffer overflow attacks, format string vulnerabilities, or other types of security issues. In the provided code snippet, the `getenv` function is used, which can lead to security vulnerabilities if not used carefully. This function returns a pointer to the value in the environment, or NULL if there is no match. The returned string should not be modified by the program, but it can be overwritten by a subsequent call to `getenv`, `setenv`, or `unsetenv`.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to avoid using insecure C library functions. Instead, use safer alternatives provided by the C++ Standard Library or other trusted libraries. In the case of `getenv`, consider using a method that does not risk overwriting the returned string and ensures thread safety.\n\n## Source Code Fix Recommendation\n\n```cpp\n#include <cstdlib>\n#include <string>\n\nstd::string llvmBin;\nconst char* rawLlvmBin = std::getenv(\"LLVM_BIN\");\nif(rawLlvmBin != nullptr) {\n    llvmBin = std::string(rawLlvmBin);\n}\n```\n\nIn this fixed code, we use `std::getenv` instead of `getenv`. The returned C-string is immediately converted to a `std::string` to prevent it from being overwritten by subsequent calls to `std::getenv`, `std::setenv`, or `std::unsetenv`.\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- cstdlib\n\n## OWASP Resources\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n\n## Common Weakness Enumeration (CWE)\n\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
+              "id": "52b7271a-7fec-319e-b9fe-0a45901653f3",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability in C++ programming language refers to the use of insecure C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, integer overflows, etc. In the provided code snippet, the function `getenv()` is used, which can lead to security vulnerabilities. The `getenv()` function returns a pointer to a string that is associated with the matched environment variable name. This can lead to information disclosure or even code execution if an attacker can control the environment in which your program runs.\n\n## Mitigation Advice\n\nAvoid using environment variables for passing sensitive information because they can be accessed by any process in the user's session. If you must use environment variables, ensure that they are not used to control the flow of the application. \n\n## Source Code Fix Recommendation\n\nIf you must use an environment variable, consider using a safer alternative to `getenv()`, such as `secure_getenv()`. The `secure_getenv()` function behaves identically to `getenv()` but returns NULL if the process is being run with elevated privileges. This can help prevent privilege escalation attacks.\n\n```cpp\nlog_level = secure_getenv(\"AMD_OCL_LOG_LEVEL\");\n```\n\n## Library Dependencies\n\nThe code example requires the following library to execute properly:\n\n* `cstdlib` - This library provides general purpose functions, including dynamic memory management, random number generation, communication with the environment, integer arithmetics, searching, sorting and converting.\n\n## References\n\n* [OWASP C++](https://owasp.org/www-community/vulnerabilities/Detected_Prohibited_C_Library_Functions)\n* [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
+              "id": "8c644bda-20cd-35e5-9a9d-b8d506ec6ecf",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability in C++ refers to the use of insecure C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, integer overflows, etc. In this case, the `getenv` function is used, which can lead to security vulnerabilities. The `getenv` function returns a pointer to a string that is associated with the matched environment variable name. This can lead to information disclosure or other security issues if the environment variable contains sensitive information.\n\n## Mitigation Advice\n\nAvoid using the `getenv` function if possible. If you need to use environment variables, consider using a safer alternative that does not expose the entire environment block. Always validate and sanitize the input to the `getenv` function to prevent potential security issues.\n\n## Source Code Fix Recommendation\n\nInstead of using `getenv`, consider using a safer alternative. For example, you can use the `std::getenv` function in C++ which is safer than the C `getenv` function. Here is an example of how to use it:\n\n```cpp\n#include <cstdlib>\n\nstd::string sEnvVar = \"PATH\";\nconst char* env_p = std::getenv(sEnvVar.c_str());\nif (env_p) {\n    std::cout << \"Your PATH is: \" << env_p << '\\n';\n}\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `<cstdlib>`: This header defines several general purpose functions, including dynamic memory management, random number generation, communication with the environment, integer arithmetics, searching, sorting and converting.\n\n## References\n\n- [OWASP C++](https://owasp.org/www-pdf-archive/OWASP_SCP_v2.pdf)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
               },
               "properties": {
                 "tags": [
@@ -252,34 +264,22 @@
               }
             },
             {
-              "id": "74db67c2-dc44-39dc-89d3-ae570f6528b5",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability refers to the use of insecure C library functions in C++ code. These functions are often prone to buffer overflow attacks, format string vulnerabilities, or other types of security issues. In the provided code snippet, the `getenv` function is used, which can lead to security vulnerabilities if not used carefully. This function returns a pointer to the value in the environment, or NULL if there is no match. The returned string should not be modified by the program, but it can be overwritten by a subsequent call to `getenv`, `setenv`, or `unsetenv`.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to avoid using insecure C library functions. Instead, use safer alternatives provided by the C++ Standard Library or other trusted libraries. In the case of `getenv`, consider using a method that does not risk overwriting the returned string and ensures thread safety.\n\n## Source Code Fix Recommendation\n\n```cpp\n#include <cstdlib>\n#include <string>\n\nstd::string llvmBin;\nconst char* rawLlvmBin = std::getenv(\"LLVM_BIN\");\nif(rawLlvmBin != nullptr) {\n    llvmBin = std::string(rawLlvmBin);\n}\n```\n\nIn this fixed code, we use `std::getenv` instead of `getenv`. The returned C-string is immediately converted to a `std::string` to prevent it from being overwritten by subsequent calls to `std::getenv`, `std::setenv`, or `std::unsetenv`.\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- cstdlib\n\n## OWASP Resources\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n\n## Common Weakness Enumeration (CWE)\n\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
-              },
-              "properties": {
-                "tags": [
-                  "DS154189"
-                ]
-              }
-            },
-            {
-              "id": "43438f15-2385-3e7f-b477-f082f440b5df",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability refers to the use of insecure or unsafe C library functions in C++ code. These functions are often prone to buffer overflow attacks, format string vulnerabilities, or other types of security issues. In this case, the `getenv` function is used, which can lead to security vulnerabilities as it accesses the environment variables of the system. If an attacker can modify these variables, they can manipulate the behavior of the program.\n\n## Mitigation Advice\n\nAvoid using functions that directly interact with the environment variables or system resources. If it's necessary to use such functions, ensure that the input is properly validated and sanitized to prevent any malicious manipulation. \n\n## Source Code Fix Recommendation\n\nInstead of using `getenv`, consider using a safer alternative that allows for error handling or input validation. For example, you could use a function that retrieves the environment variable and checks it against a whitelist of allowed values.\n\n```cpp\nconst char* getSafeEnv(const char* name) {\n    static const std::set<std::string> whitelist = {\"ALLOWED_ENV_VAR1\", \"ALLOWED_ENV_VAR2\"};\n    if (whitelist.find(name) != whitelist.end()) {\n        return getenv(name);\n    } else {\n        // Handle error or return a default value\n        return nullptr;\n    }\n}\n\n// Usage\nASSERT_NE(getSafeEnv(\"TEST_DIR\"), nullptr);\n```\n\n## Library Dependencies\n\nThe code example requires the following libraries:\n\n- `cassert` for the `ASSERT_NE` macro.\n- `cstdlib` for the `getenv` function.\n- `set` and `string` for the whitelist in the `getSafeEnv` function.\n\n## References\n\n- [OWASP C++](https://owasp.org/www-pdf-archive/OWASP_SCP_v2.pdf)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
-              },
-              "properties": {
-                "tags": [
-                  "DS154189"
-                ]
-              }
-            },
-            {
               "id": "cc362cad-7aa3-3a68-a326-8aacf2aa6f4c",
               "help": {
                 "text": "",
                 "markdown": "## Description\n\n\"Detected Prohibited C Function\" vulnerability in C++ refers to the use of insecure C library functions that can lead to various security issues such as buffer overflows, format string vulnerabilities, integer overflows, etc. In this case, the `fopen` function is used, which can lead to vulnerabilities if the input is not properly validated or sanitized. An attacker could potentially manipulate the input to open files they are not supposed to access or even execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to use safer alternatives to these functions provided by the C++ Standard Library. In this case, instead of using `fopen`, you can use the `fstream` class from the C++ Standard Library which provides a higher level of abstraction and is generally safer to use.\n\n## Source Code Fix Recommendation\n\nHere is a fixed version of the code using `fstream`:\n\n```cpp\n#include <fstream>\n#include <string>\n\nstd::string name = \"filename\";\nstd::ifstream f(name.c_str());\n```\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `<fstream>`: for file operations\n- `<string>`: for string operations\n\n## References\n\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
+              "id": "e4ce6ee5-1de7-3101-8352-a4eb74d1f0ee",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\n\"Prohibited C Function Found\" is a vulnerability that occurs when a C++ program uses a function that is considered unsafe due to its potential to cause buffer overflows, format string vulnerabilities, or other security problems. The `getenv` function is one such function. It returns a pointer to a string that is associated with the matched environment variable name. This can lead to security vulnerabilities if the returned string is modified, or if the program does not handle the possibility that `getenv` could return a null pointer if the specified environment variable does not exist.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, avoid using the `getenv` function. Instead, consider using safer alternatives that are less prone to security issues. Always validate and sanitize input, and handle the possibility of null pointers. \n\n## Source Code Fix Recommendation\n\nInstead of using `getenv`, you can use a safer alternative like `getenv_s`. Here is an example of how to use it:\n\n```cpp\n#include <stdlib.h>\n\nchar* value;\nsize_t requiredSize;\n\ngetenv_s(&requiredSize, NULL, 0, \"ENV_VAR\");\nif (requiredSize == 0)\n{\n    printf(\"The environment variable does not exist.\\n\");\n}\nelse\n{\n    value = (char*) malloc(requiredSize * sizeof(char));\n    if (value != NULL)\n    {\n        getenv_s(&requiredSize, value, requiredSize, \"ENV_VAR\");\n        printf(\"The value of the environment variable is: %s\\n\", value);\n    }\n    free(value);\n}\n```\n\nIn this code, `getenv_s` is used to safely get the value of an environment variable. It checks if the environment variable exists and handles the possibility of a null pointer.\n\n## Library Dependencies\n\nThe code example requires the `stdlib.h` library.\n\n## References\n\n- [OWASP C++](https://owasp.org/www-pdf-archive/OWASP_SCP_v2.pdf)\n- [CWE-676: Use of Potentially Dangerous Function](https://cwe.mitre.org/data/definitions/676.html)"
               },
               "properties": {
                 "tags": [
@@ -563,7 +563,7 @@
           }
         },
         {
-          "ruleId": "edbc1ccb-ee8f-37ad-99ab-30f6a77838d6",
+          "ruleId": "cc9e637a-4836-3273-99a9-38cabcdf27ac",
           "kind": "fail",
           "level": "note",
           "message": {
@@ -576,17 +576,17 @@
                   "uri": "src/unittest/Tests.cpp"
                 },
                 "region": {
-                  "startLine": 532,
-                  "startColumn": 61,
-                  "endLine": 532,
-                  "endColumn": 78,
-                  "charOffset": 17267,
-                  "charLength": 17,
+                  "startLine": 461,
+                  "startColumn": 59,
+                  "endLine": 461,
+                  "endColumn": 74,
+                  "charOffset": 14887,
+                  "charLength": 15,
                   "snippet": {
-                    "text": "strlen(invalidCL)",
+                    "text": "strlen(defined)",
                     "rendered": {
-                      "text": "strlen(invalidCL)",
-                      "markdown": "`strlen(invalidCL)`"
+                      "text": "strlen(defined)",
+                      "markdown": "`strlen(defined)`"
                     }
                   },
                   "sourceLanguage": "cpp"
@@ -607,11 +607,11 @@
                   "replacements": [
                     {
                       "deletedRegion": {
-                        "charOffset": 17267,
-                        "charLength": 17
+                        "charOffset": 14887,
+                        "charLength": 15
                       },
                       "insertedContent": {
-                        "text": "strlen_s(invalidCL, <size of invalidCL>)"
+                        "text": "strlen_s(defined, <size of defined>)"
                       }
                     }
                   ]
@@ -630,11 +630,11 @@
                   "replacements": [
                     {
                       "deletedRegion": {
-                        "charOffset": 17267,
-                        "charLength": 17
+                        "charOffset": 14887,
+                        "charLength": 15
                       },
                       "insertedContent": {
-                        "text": "strnlen(invalidCL, <size of invalidCL>)"
+                        "text": "strnlen(defined, <size of defined>)"
                       }
                     }
                   ]
@@ -739,7 +739,7 @@
           }
         },
         {
-          "ruleId": "cc9e637a-4836-3273-99a9-38cabcdf27ac",
+          "ruleId": "d34b3959-401a-37e2-bcb1-1560a581c6d5",
           "kind": "fail",
           "level": "note",
           "message": {
@@ -752,17 +752,17 @@
                   "uri": "src/unittest/Tests.cpp"
                 },
                 "region": {
-                  "startLine": 461,
-                  "startColumn": 59,
-                  "endLine": 461,
-                  "endColumn": 74,
-                  "charOffset": 14887,
-                  "charLength": 15,
+                  "startLine": 448,
+                  "startColumn": 74,
+                  "endLine": 448,
+                  "endColumn": 96,
+                  "charOffset": 14432,
+                  "charLength": 22,
                   "snippet": {
-                    "text": "strlen(defined)",
+                    "text": "strlen(includeInvalid)",
                     "rendered": {
-                      "text": "strlen(defined)",
-                      "markdown": "`strlen(defined)`"
+                      "text": "strlen(includeInvalid)",
+                      "markdown": "`strlen(includeInvalid)`"
                     }
                   },
                   "sourceLanguage": "cpp"
@@ -783,11 +783,11 @@
                   "replacements": [
                     {
                       "deletedRegion": {
-                        "charOffset": 14887,
-                        "charLength": 15
+                        "charOffset": 14432,
+                        "charLength": 22
                       },
                       "insertedContent": {
-                        "text": "strlen_s(defined, <size of defined>)"
+                        "text": "strlen_s(includeInvalid, <size of includeInvalid>)"
                       }
                     }
                   ]
@@ -806,11 +806,11 @@
                   "replacements": [
                     {
                       "deletedRegion": {
-                        "charOffset": 14887,
-                        "charLength": 15
+                        "charOffset": 14432,
+                        "charLength": 22
                       },
                       "insertedContent": {
-                        "text": "strnlen(defined, <size of defined>)"
+                        "text": "strnlen(includeInvalid, <size of includeInvalid>)"
                       }
                     }
                   ]
@@ -1003,7 +1003,7 @@
           }
         },
         {
-          "ruleId": "d34b3959-401a-37e2-bcb1-1560a581c6d5",
+          "ruleId": "4f42ff5a-5a70-3373-838f-2b18a3a93a9f",
           "kind": "fail",
           "level": "note",
           "message": {
@@ -1016,17 +1016,17 @@
                   "uri": "src/unittest/Tests.cpp"
                 },
                 "region": {
-                  "startLine": 448,
-                  "startColumn": 74,
-                  "endLine": 448,
-                  "endColumn": 96,
-                  "charOffset": 14432,
-                  "charLength": 22,
+                  "startLine": 431,
+                  "startColumn": 66,
+                  "endLine": 431,
+                  "endColumn": 81,
+                  "charOffset": 13693,
+                  "charLength": 15,
                   "snippet": {
-                    "text": "strlen(includeInvalid)",
+                    "text": "strlen(include)",
                     "rendered": {
-                      "text": "strlen(includeInvalid)",
-                      "markdown": "`strlen(includeInvalid)`"
+                      "text": "strlen(include)",
+                      "markdown": "`strlen(include)`"
                     }
                   },
                   "sourceLanguage": "cpp"
@@ -1047,11 +1047,11 @@
                   "replacements": [
                     {
                       "deletedRegion": {
-                        "charOffset": 14432,
-                        "charLength": 22
+                        "charOffset": 13693,
+                        "charLength": 15
                       },
                       "insertedContent": {
-                        "text": "strlen_s(includeInvalid, <size of includeInvalid>)"
+                        "text": "strlen_s(include, <size of include>)"
                       }
                     }
                   ]
@@ -1070,11 +1070,11 @@
                   "replacements": [
                     {
                       "deletedRegion": {
-                        "charOffset": 14432,
-                        "charLength": 22
+                        "charOffset": 13693,
+                        "charLength": 15
                       },
                       "insertedContent": {
-                        "text": "strnlen(includeInvalid, <size of includeInvalid>)"
+                        "text": "strnlen(include, <size of include>)"
                       }
                     }
                   ]
@@ -1163,94 +1163,6 @@
                       },
                       "insertedContent": {
                         "text": "strnlen(includeInvalid, <size of includeInvalid>)"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "BestPractice",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.ProblematicFunction"
-            ]
-          }
-        },
-        {
-          "ruleId": "4f42ff5a-5a70-3373-838f-2b18a3a93a9f",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Detected Vulnerability in C Function (strlen)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/unittest/Tests.cpp"
-                },
-                "region": {
-                  "startLine": 431,
-                  "startColumn": 66,
-                  "endLine": 431,
-                  "endColumn": 81,
-                  "charOffset": 13693,
-                  "charLength": 15,
-                  "snippet": {
-                    "text": "strlen(include)",
-                    "rendered": {
-                      "text": "strlen(include)",
-                      "markdown": "`strlen(include)`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "fixes": [
-            {
-              "description": {
-                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
-              },
-              "artifactChanges": [
-                {
-                  "artifactLocation": {
-                    "uri": "src/unittest/Tests.cpp"
-                  },
-                  "replacements": [
-                    {
-                      "deletedRegion": {
-                        "charOffset": 13693,
-                        "charLength": 15
-                      },
-                      "insertedContent": {
-                        "text": "strlen_s(include, <size of include>)"
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "description": {
-                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
-              },
-              "artifactChanges": [
-                {
-                  "artifactLocation": {
-                    "uri": "src/unittest/Tests.cpp"
-                  },
-                  "replacements": [
-                    {
-                      "deletedRegion": {
-                        "charOffset": 13693,
-                        "charLength": 15
-                      },
-                      "insertedContent": {
-                        "text": "strnlen(include, <size of include>)"
                       }
                     }
                   ]
@@ -1443,86 +1355,6 @@
           }
         },
         {
-          "ruleId": "52b7271a-7fec-319e-b9fe-0a45901653f3",
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "Detected Prohibited C Function"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/driver/AmdCompiler.cpp"
-                },
-                "region": {
-                  "startLine": 814,
-                  "startColumn": 26,
-                  "endLine": 814,
-                  "endColumn": 32,
-                  "charOffset": 28320,
-                  "charLength": 6,
-                  "snippet": {
-                    "text": "getenv",
-                    "rendered": {
-                      "text": "getenv",
-                      "markdown": "`getenv`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "Moderate",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.BannedFunction"
-            ]
-          }
-        },
-        {
-          "ruleId": "e4ce6ee5-1de7-3101-8352-a4eb74d1f0ee",
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "\"Prohibited C Function Found\""
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/driver/AmdCompiler.cpp"
-                },
-                "region": {
-                  "startLine": 234,
-                  "startColumn": 14,
-                  "endLine": 234,
-                  "endColumn": 20,
-                  "charOffset": 6082,
-                  "charLength": 6,
-                  "snippet": {
-                    "text": "getenv",
-                    "rendered": {
-                      "text": "getenv",
-                      "markdown": "`getenv`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "Moderate",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.BannedFunction"
-            ]
-          }
-        },
-        {
           "ruleId": "1ef89170-c731-3e66-84bf-ea998cb17a55",
           "kind": "fail",
           "level": "note",
@@ -1611,7 +1443,7 @@
           }
         },
         {
-          "ruleId": "8c644bda-20cd-35e5-9a9d-b8d506ec6ecf",
+          "ruleId": "43438f15-2385-3e7f-b477-f082f440b5df",
           "kind": "fail",
           "level": "warning",
           "message": {
@@ -1621,14 +1453,14 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "src/driver/AmdCompiler.cpp"
+                  "uri": "src/unittest/Tests.cpp"
                 },
                 "region": {
-                  "startLine": 805,
-                  "startColumn": 20,
-                  "endLine": 805,
-                  "endColumn": 26,
-                  "charOffset": 28126,
+                  "startLine": 25,
+                  "startColumn": 14,
+                  "endLine": 25,
+                  "endColumn": 20,
+                  "charOffset": 577,
                   "charLength": 6,
                   "snippet": {
                     "text": "getenv",
@@ -1669,6 +1501,126 @@
                   "endLine": 26,
                   "endColumn": 20,
                   "charOffset": 621,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "getenv",
+                    "rendered": {
+                      "text": "getenv",
+                      "markdown": "`getenv`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "74db67c2-dc44-39dc-89d3-ae570f6528b5",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Detected Prohibited C Function"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/unittest/Tests.cpp"
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 14,
+                  "endLine": 24,
+                  "endColumn": 20,
+                  "charOffset": 543,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "getenv",
+                    "rendered": {
+                      "text": "getenv",
+                      "markdown": "`getenv`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "52b7271a-7fec-319e-b9fe-0a45901653f3",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Detected Prohibited C Function"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/driver/AmdCompiler.cpp"
+                },
+                "region": {
+                  "startLine": 814,
+                  "startColumn": 26,
+                  "endLine": 814,
+                  "endColumn": 32,
+                  "charOffset": 28320,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "getenv",
+                    "rendered": {
+                      "text": "getenv",
+                      "markdown": "`getenv`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "8c644bda-20cd-35e5-9a9d-b8d506ec6ecf",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "Detected Prohibited C Function"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/driver/AmdCompiler.cpp"
+                },
+                "region": {
+                  "startLine": 805,
+                  "startColumn": 20,
+                  "endLine": 805,
+                  "endColumn": 26,
+                  "charOffset": 28126,
                   "charLength": 6,
                   "snippet": {
                     "text": "getenv",
@@ -1771,86 +1723,6 @@
           }
         },
         {
-          "ruleId": "74db67c2-dc44-39dc-89d3-ae570f6528b5",
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "Detected Prohibited C Function"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/unittest/Tests.cpp"
-                },
-                "region": {
-                  "startLine": 24,
-                  "startColumn": 14,
-                  "endLine": 24,
-                  "endColumn": 20,
-                  "charOffset": 543,
-                  "charLength": 6,
-                  "snippet": {
-                    "text": "getenv",
-                    "rendered": {
-                      "text": "getenv",
-                      "markdown": "`getenv`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "Moderate",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.BannedFunction"
-            ]
-          }
-        },
-        {
-          "ruleId": "43438f15-2385-3e7f-b477-f082f440b5df",
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "Detected Prohibited C Function"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/unittest/Tests.cpp"
-                },
-                "region": {
-                  "startLine": 25,
-                  "startColumn": 14,
-                  "endLine": 25,
-                  "endColumn": 20,
-                  "charOffset": 577,
-                  "charLength": 6,
-                  "snippet": {
-                    "text": "getenv",
-                    "rendered": {
-                      "text": "getenv",
-                      "markdown": "`getenv`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "Moderate",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.BannedFunction"
-            ]
-          }
-        },
-        {
           "ruleId": "cc362cad-7aa3-3a68-a326-8aacf2aa6f4c",
           "kind": "fail",
           "level": "warning",
@@ -1875,6 +1747,46 @@
                     "rendered": {
                       "text": "fopen",
                       "markdown": "`fopen`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "e4ce6ee5-1de7-3101-8352-a4eb74d1f0ee",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "\"Prohibited C Function Found\""
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/driver/AmdCompiler.cpp"
+                },
+                "region": {
+                  "startLine": 234,
+                  "startColumn": 14,
+                  "endLine": 234,
+                  "endColumn": 20,
+                  "charOffset": 6082,
+                  "charLength": 6,
+                  "snippet": {
+                    "text": "getenv",
+                    "rendered": {
+                      "text": "getenv",
+                      "markdown": "`getenv`"
                     }
                   },
                   "sourceLanguage": "cpp"
